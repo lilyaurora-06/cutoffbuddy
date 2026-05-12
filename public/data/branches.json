@@ -1,0 +1,546 @@
+[
+  {
+    "code": "AD",
+    "name": "AI & Data Science"
+  },
+  {
+    "code": "AE",
+    "name": "Aerospace Engg"
+  },
+  {
+    "code": "AG",
+    "name": "Agriculture Engineering"
+  },
+  {
+    "code": "AI",
+    "name": "Artificial Intelligence & ML"
+  },
+  {
+    "code": "AM",
+    "name": "B Tech in AM"
+  },
+  {
+    "code": "AR",
+    "name": "Architecture"
+  },
+  {
+    "code": "AT",
+    "name": "Automotive"
+  },
+  {
+    "code": "AU",
+    "name": "Automobile Engg"
+  },
+  {
+    "code": "BA",
+    "name": "Bachelor Of Design (Interior Design )"
+  },
+  {
+    "code": "BB",
+    "name": "B Tech in EC"
+  },
+  {
+    "code": "BF",
+    "name": "Bio-Medical Engg"
+  },
+  {
+    "code": "BG",
+    "name": "B Tech in AD"
+  },
+  {
+    "code": "BH",
+    "name": "B Tech in AI"
+  },
+  {
+    "code": "BI",
+    "name": "Bio-Technology"
+  },
+  {
+    "code": "BJ",
+    "name": "B Tech in EE"
+  },
+  {
+    "code": "BK",
+    "name": "B Tech in EN"
+  },
+  {
+    "code": "BL",
+    "name": "B Tech in AS"
+  },
+  {
+    "code": "BM",
+    "name": "Bio-Medical Engg"
+  },
+  {
+    "code": "BN",
+    "name": "B Tech in BD"
+  },
+  {
+    "code": "BO",
+    "name": "B Tech in BT"
+  },
+  {
+    "code": "BP",
+    "name": "B Tech in CE"
+  },
+  {
+    "code": "BQ",
+    "name": "B Tech in CG"
+  },
+  {
+    "code": "BR",
+    "name": "BioMed. and"
+  },
+  {
+    "code": "BT",
+    "name": "Bio Technology"
+  },
+  {
+    "code": "BU",
+    "name": "B Tech in CI"
+  },
+  {
+    "code": "BV",
+    "name": "B Tech in CO"
+  },
+  {
+    "code": "BW",
+    "name": "B Tech in CS"
+  },
+  {
+    "code": "BX",
+    "name": "B Tech in CY"
+  },
+  {
+    "code": "BY",
+    "name": "B Tech in DO"
+  },
+  {
+    "code": "BZ",
+    "name": "B Tech in DS"
+  },
+  {
+    "code": "CA",
+    "name": "CS (AI & ML)"
+  },
+  {
+    "code": "CB",
+    "name": "CS & Business Systems"
+  },
+  {
+    "code": "CC",
+    "name": "Computer and"
+  },
+  {
+    "code": "CD",
+    "name": "CS (Data Science)"
+  },
+  {
+    "code": "CE",
+    "name": "Civil Engg"
+  },
+  {
+    "code": "CF",
+    "name": "CS(Artificial"
+  },
+  {
+    "code": "CG",
+    "name": "CS (Cyber Security)"
+  },
+  {
+    "code": "CH",
+    "name": "Chemical Engg"
+  },
+  {
+    "code": "CK",
+    "name": "Civil Engg"
+  },
+  {
+    "code": "CL",
+    "name": "B Tech in EO"
+  },
+  {
+    "code": "CM",
+    "name": "B Tech in EV"
+  },
+  {
+    "code": "CN",
+    "name": "B Tech in IB"
+  },
+  {
+    "code": "CO",
+    "name": "Computer"
+  },
+  {
+    "code": "CQ",
+    "name": "B Tech in IO"
+  },
+  {
+    "code": "CR",
+    "name": "Ceramics"
+  },
+  {
+    "code": "CS",
+    "name": "Computer Science & Engg"
+  },
+  {
+    "code": "CT",
+    "name": "Const. Tech."
+  },
+  {
+    "code": "CU",
+    "name": "B Tech in IS"
+  },
+  {
+    "code": "CV",
+    "name": "Civil"
+  },
+  {
+    "code": "CW",
+    "name": "B Tech in IT"
+  },
+  {
+    "code": "CX",
+    "name": "B Tech in IY"
+  },
+  {
+    "code": "CY",
+    "name": "Cyber Security"
+  },
+  {
+    "code": "CZ",
+    "name": "B Tech in LC"
+  },
+  {
+    "code": "DA",
+    "name": "B Tech in MC"
+  },
+  {
+    "code": "DB",
+    "name": "B Tech in ME"
+  },
+  {
+    "code": "DC",
+    "name": "Data Sciences"
+  },
+  {
+    "code": "DD",
+    "name": "B Tech in MS"
+  },
+  {
+    "code": "DE",
+    "name": "B Tech in PE"
+  },
+  {
+    "code": "DF",
+    "name": "B Tech in RA"
+  },
+  {
+    "code": "DG",
+    "name": "DG"
+  },
+  {
+    "code": "DH",
+    "name": "B Tech in RAI"
+  },
+  {
+    "code": "DI",
+    "name": "B Tech in RE"
+  },
+  {
+    "code": "DJ",
+    "name": "B Tech in RO"
+  },
+  {
+    "code": "DK",
+    "name": "B Tech in SS"
+  },
+  {
+    "code": "DM",
+    "name": "B.TECH IN CS NW"
+  },
+  {
+    "code": "DN",
+    "name": "B.Tech in VLSI"
+  },
+  {
+    "code": "DS",
+    "name": "Data Science"
+  },
+  {
+    "code": "EA",
+    "name": "Agriculture"
+  },
+  {
+    "code": "EB",
+    "name": "EAT"
+  },
+  {
+    "code": "EC",
+    "name": "Electronics & Communication Engg"
+  },
+  {
+    "code": "EE",
+    "name": "Electrical & Electronics Engg"
+  },
+  {
+    "code": "EI",
+    "name": "Electronics & Instrumentation"
+  },
+  {
+    "code": "EL",
+    "name": "Electronics,"
+  },
+  {
+    "code": "EN",
+    "name": "Environmental Engineering"
+  },
+  {
+    "code": "ER",
+    "name": "Electrical and"
+  },
+  {
+    "code": "ES",
+    "name": "Electronics and"
+  },
+  {
+    "code": "ET",
+    "name": "Electronics & Telecomm Engg"
+  },
+  {
+    "code": "EV",
+    "name": "EC Engg(VLSI"
+  },
+  {
+    "code": "EZ",
+    "name": "ELECTRONICS AND"
+  },
+  {
+    "code": "FA",
+    "name": "Fashion Design"
+  },
+  {
+    "code": "IC",
+    "name": "CS-IoT, Cyber"
+  },
+  {
+    "code": "IE",
+    "name": "Information Science & Engg"
+  },
+  {
+    "code": "IM",
+    "name": "Industrial Engg & Mgmt"
+  },
+  {
+    "code": "IO",
+    "name": "CS- Internet of"
+  },
+  {
+    "code": "IP",
+    "name": "Ind.Prodn."
+  },
+  {
+    "code": "IZ",
+    "name": "INFORMATION"
+  },
+  {
+    "code": "LA",
+    "name": "B Plan"
+  },
+  {
+    "code": "LD",
+    "name": "B Tech in DS"
+  },
+  {
+    "code": "LE",
+    "name": "B Tech in AIML"
+  },
+  {
+    "code": "LF",
+    "name": "B Tech in CC"
+  },
+  {
+    "code": "LG",
+    "name": "B Tech in CS"
+  },
+  {
+    "code": "LH",
+    "name": "B Tech in IS"
+  },
+  {
+    "code": "LI",
+    "name": "Life Style And Accessory Design"
+  },
+  {
+    "code": "LJ",
+    "name": "B Tech in BS"
+  },
+  {
+    "code": "LK",
+    "name": "B Tech in IOT"
+  },
+  {
+    "code": "MA",
+    "name": "Marine Engineering"
+  },
+  {
+    "code": "MD",
+    "name": "Medical Electronics"
+  },
+  {
+    "code": "ME",
+    "name": "Mechanical Engg"
+  },
+  {
+    "code": "MI",
+    "name": "Mining"
+  },
+  {
+    "code": "MK",
+    "name": "Mechanical Engg"
+  },
+  {
+    "code": "MM",
+    "name": "Mechanical,"
+  },
+  {
+    "code": "MN",
+    "name": "Mining Engg"
+  },
+  {
+    "code": "MR",
+    "name": "Marine"
+  },
+  {
+    "code": "MT",
+    "name": "Mechatronics"
+  },
+  {
+    "code": "OT",
+    "name": "Industrial IOT"
+  },
+  {
+    "code": "PL",
+    "name": "Planning"
+  },
+  {
+    "code": "PO",
+    "name": "Polymer Science & Technology"
+  },
+  {
+    "code": "PR",
+    "name": "Production Engineering"
+  },
+  {
+    "code": "PT",
+    "name": "Polymer Tech."
+  },
+  {
+    "code": "RA",
+    "name": "Robotics and"
+  },
+  {
+    "code": "RI",
+    "name": "Robotics and AI"
+  },
+  {
+    "code": "RO",
+    "name": "Auto. And"
+  },
+  {
+    "code": "RP",
+    "name": "Robotics & Process Automation"
+  },
+  {
+    "code": "SA",
+    "name": "Smart Agritech"
+  },
+  {
+    "code": "SE",
+    "name": "Aero Space"
+  },
+  {
+    "code": "ST",
+    "name": "Silk Technology"
+  },
+  {
+    "code": "TC",
+    "name": "Telecomm Engg"
+  },
+  {
+    "code": "TX",
+    "name": "Textile Technology"
+  },
+  {
+    "code": "UP",
+    "name": "Planning"
+  },
+  {
+    "code": "UR",
+    "name": "Planning"
+  },
+  {
+    "code": "YA",
+    "name": "B.TEHIN"
+  },
+  {
+    "code": "YC",
+    "name": "B.TECH IN EMD."
+  },
+  {
+    "code": "YE",
+    "name": "B.TECH IN"
+  },
+  {
+    "code": "YF",
+    "name": "B.TECH IN ELECT"
+  },
+  {
+    "code": "YH",
+    "name": "ENGINEERING"
+  },
+  {
+    "code": "YI",
+    "name": "B.TECH IN"
+  },
+  {
+    "code": "ZA",
+    "name": "B TECH IN"
+  },
+  {
+    "code": "ZC",
+    "name": "CSC"
+  },
+  {
+    "code": "ZH",
+    "name": "B TECH IN"
+  },
+  {
+    "code": "ZL",
+    "name": "CIVIL ENG. WITH"
+  },
+  {
+    "code": "ZM",
+    "name": "B.TECH IN"
+  },
+  {
+    "code": "ZN",
+    "name": "B.TECH IN"
+  },
+  {
+    "code": "ZT",
+    "name": "B.TECH. IN"
+  },
+  {
+    "code": "ZU",
+    "name": "CYBER SECURITY"
+  },
+  {
+    "code": "ZV",
+    "name": "B.TECH.IN"
+  },
+  {
+    "code": "ZW",
+    "name": "COMP. SCE. AND"
+  }
+]
