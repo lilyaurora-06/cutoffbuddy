@@ -61,10 +61,9 @@ export default function CollegeDetailPage() {
   }, [cutoffs, category])
 
   const branches = useMemo(() =>
-    [...new Map(cutoffs.filter(r => r.category === category).map(r => [r.branch_code, r.branch_name])).entries()],
-  [cutoffs, category])
+   Array.from(new Map(cutoffs.filter(r => r.category === category).map(r => [r.branch_code, r.branch_name])).entries()),
 
-  const categories = useMemo(() => [...new Set(cutoffs.map(r => r.category))].sort(), [cutoffs])
+  const categories = useMemo(() => Array.from(new Set(cutoffs.map(r => r.category))).sort(), [cutoffs])
 
   const latest2025 = useMemo(() =>
     cutoffs.filter(r => r.year === 2025 && r.round === 'Round 3' && r.category === category)
