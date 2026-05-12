@@ -30,10 +30,10 @@ export default function CollegePredictorPage() {
   }, [])
 
   const branches = useMemo(() => {
-  const map = new Map<string, string>()
-  data.forEach((r) => map.set(r.branch_code, r.branch_name))
-  return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1]))
-}, [data])
+    const set = new Map<string, string>()
+    data.forEach((r) => set.set(r.branch_code, r.branch_name))
+    return Array.from(set.entries()).sort((a, b) => a[1].localeCompare(b[1]))
+  }, [data])
 
   function handleSearch() {
     const r = Number(rank)
