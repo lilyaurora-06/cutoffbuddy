@@ -113,5 +113,5 @@ export function getUniqueValues<T extends keyof CutoffRecord>(
   data: CutoffRecord[],
   key: T
 ): CutoffRecord[T][] {
-  return [...new Set(data.map((r) => r[key]))].sort() as CutoffRecord[T][]
+  return Array.from(new Set(data.map((r) => r[key]))).sort() as CutoffRecord[T][]
 }
