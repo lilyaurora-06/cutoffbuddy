@@ -46,13 +46,12 @@ export default function CollegeDetailPage() {
     })
   }, [code])
 
-  // Build trend data per branch
   const trendData = useMemo(() => {
-    const branches = Array.from(new Set(cutoffs.filter(r => r.category === category).map(r => r.branch_code)))
+    const branchSet = Array.from(new Set(cutoffs.filter(r => r.category === category).map(r => r.branch_code)))
     const years = [2023, 2024, 2025]
     return years.map(year => {
       const point: Record<string, unknown> = { year }
-      for (const bc of branches) {
+      for (const bc of branchSet) {
         const rec = cutoffs.find(r => r.year === year && r.category === category && r.branch_code === bc && r.round === 'Round 1')
         if (rec) point[bc] = rec.closing_rank
       }
@@ -60,10 +59,15 @@ export default function CollegeDetailPage() {
     })
   }, [cutoffs, category])
 
-  const branches = useMemo(() =>
-   Array.from(new Map(cutoffs.filter(r => r.category === category).map(r => [r.branch_code, r.branch_name])).entries()),
+  const branches = useMemo(() => {
+    const map = new Map<string, string>()
+    cutoffs.filter(r => r.category === category).forEach(r => map.set(r.branch_code, r.branch_name))
+    return Array.from(map.entries())
+  }, [cutoffs, category])
 
-  const categories = useMemo(() => Array.from(new Set(cutoffs.map(r => r.category))).sort(), [cutoffs])
+  const categories = useMemo(() => {
+    return Array.from(new Set(cutoffs.map(r => r.category))).sort()
+  }, [cutoffs])
 
   const latest2025 = useMemo(() =>
     cutoffs.filter(r => r.year === 2025 && r.round === 'Round 3' && r.category === category)
@@ -71,7 +75,7 @@ export default function CollegeDetailPage() {
   [cutoffs, category])
 
   if (loading) return (
-    <div className="max-w-5xl mx-auto px-4 py-16 text-center text-slate-400">Loading college data…</div>
+    <div className="max-w-5xl mx-auto px-4 py-16 text-center text-slate-400">Loading college data...</div>
   )
   if (!detail) return (
     <div className="max-w-5xl mx-auto px-4 py-16 text-center text-slate-400">College not found</div>
@@ -79,16 +83,14 @@ export default function CollegeDetailPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Back */}
       <Link href="/cutoffs" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-blue-600 mb-6 transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Cutoffs
       </Link>
 
-      {/* Header */}
       <div className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-6 mb-6">
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
               <span className="bg-white/20 text-white text-xs font-mono px-2 py-0.5 rounded">{detail.code}</span>
               <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded">{detail.type}</span>
               {detail.nirf_rank && (
@@ -112,7 +114,6 @@ export default function CollegeDetailPage() {
         </div>
       </div>
 
-      {/* Category selector */}
       <div className="flex items-center gap-2 mb-6 flex-wrap">
         <span className="text-sm font-medium text-slate-600">Category:</span>
         {categories.slice(0, 12).map(cat => (
@@ -124,14 +125,12 @@ export default function CollegeDetailPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left — trend chart + latest cutoffs */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Trend Chart */}
           <Card>
             <CardHeader>
               <h2 className="font-semibold text-slate-800 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-blue-500" />
-                Cutoff Trend 2023–2025 (Round 1, {category})
+                Cutoff Trend 2023-2025 (Round 1, {category})
               </h2>
             </CardHeader>
             <CardContent>
@@ -139,7 +138,7 @@ export default function CollegeDetailPage() {
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={trendData}>
                     <XAxis dataKey="year" tick={{ fontSize: 12 }} />
-                    <YAxis reversed tick={{ fontSize: 11 }} tickFormatter={v => v >= 1000 ? `${(v/1000).toFixed(0)}K` : v} />
+                    <YAxis reversed tick={{ fontSize: 11 }} tickFormatter={(v: number) => v >= 1000 ? `${(v/1000).toFixed(0)}K` : String(v)} />
                     <Tooltip formatter={(v: number) => v?.toLocaleString('en-IN')} />
                     <Legend />
                     {branches.slice(0, 6).map(([bc, bn], i) => (
@@ -157,10 +156,9 @@ export default function CollegeDetailPage() {
             </CardContent>
           </Card>
 
-          {/* Latest cutoffs table */}
           <Card>
             <CardHeader>
-              <h2 className="font-semibold text-slate-800">2025 Round 3 Cutoffs — {category}</h2>
+              <h2 className="font-semibold text-slate-800">2025 Round 3 Cutoffs - {category}</h2>
             </CardHeader>
             <CardContent>
               {latest2025.length > 0 ? (
@@ -191,9 +189,7 @@ export default function CollegeDetailPage() {
           </Card>
         </div>
 
-        {/* Right — info cards */}
         <div className="space-y-4">
-          {/* College info */}
           <Card>
             <CardContent className="pt-5 space-y-3">
               <div>
@@ -224,25 +220,22 @@ export default function CollegeDetailPage() {
               {detail.website && (
                 <a href={detail.website} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600 hover:underline text-sm font-medium pt-1">
-                  <Globe className="w-4 h-4" />
-                  Official Website
-                  <ExternalLink className="w-3 h-3" />
+                  <Globe className="w-4 h-4" />Official Website<ExternalLink className="w-3 h-3" />
                 </a>
               )}
             </CardContent>
           </Card>
 
-          {/* Quick actions */}
           <Card className="bg-blue-50 border-blue-100">
             <CardContent className="pt-5 space-y-2.5">
               <h3 className="font-semibold text-blue-800 text-sm mb-3">Quick Actions</h3>
-              <Link href={`/college-predictor`}
+              <Link href="/college-predictor"
                 className="block w-full text-center bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-xl hover:bg-blue-700 transition-colors">
                 Check My Chances
               </Link>
-              <Link href={`/cutoffs?college=${detail.code}`}
+              <Link href="/cutoffs"
                 className="block w-full text-center bg-white text-blue-700 border border-blue-200 text-sm font-medium px-4 py-2 rounded-xl hover:bg-blue-50 transition-colors">
-                All Cutoffs for This College
+                All Cutoffs Explorer
               </Link>
             </CardContent>
           </Card>
