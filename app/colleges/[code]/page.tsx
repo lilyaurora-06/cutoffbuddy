@@ -48,7 +48,7 @@ export default function CollegeDetailPage() {
 
   // Build trend data per branch
   const trendData = useMemo(() => {
-    const branches = [...new Set(cutoffs.filter(r => r.category === category).map(r => r.branch_code))]
+    const branches = Array.from(new Set(cutoffs.filter(r => r.category === category).map(r => r.branch_code)))
     const years = [2023, 2024, 2025]
     return years.map(year => {
       const point: Record<string, unknown> = { year }
