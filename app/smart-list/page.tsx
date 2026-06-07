@@ -63,7 +63,8 @@ export default function SmartListPage() {
     setRankError('')
     setLoading(true)
     setTimeout(() => {
-      let res = predictColleges(cutoffs, r, category)
+      const { predictions } = predictColleges(cutoffs, r, category)
+      let res = predictions
       // Apply city/type filters
       if (cityPref) res = res.filter(c => collegeDetails[c.college_code]?.city === cityPref)
       if (typePref) res = res.filter(c => collegeDetails[c.college_code]?.type === typePref)
