@@ -107,7 +107,7 @@ export function predictColleges(
 
   const results: CollegePrediction[] = []
 
-  for (const record of map.values()) {
+  for (const record of Array.from(map.values())) {
     const C = record.closing_rank
     if (!C || C <= 0) continue
 
