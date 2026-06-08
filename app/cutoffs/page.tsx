@@ -1,8 +1,7 @@
 'use client'
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { BarChart2, Search, ChevronDown, ChevronUp } from 'lucide-react'
-import { Input } from '@/components/ui/Input'
-import { Select } from '@/components/ui/Input'
+import { Input, Select } from '@/components/ui/Input'
 import { Card, CardContent } from '@/components/ui/Card'
 import { filterCutoffs } from '@/lib/filter-utils'
 import { CATEGORIES, YEARS, ROUNDS } from '@/lib/constants'
@@ -12,7 +11,7 @@ const PAGE_SIZE = 50
 
 export default function CutoffsPage() {
   const [allData, setAllData] = useState<CutoffRecord[]>([])
-  const [loadedYears, setLoadedYears] = useState<number[]>([])
+  const loadedYears = useRef<Set<number>>(new Set())
   const [loadingYear, setLoadingYear] = useState<number | null>(null)
 
   const [search, setSearch] = useState('')
@@ -24,22 +23,27 @@ export default function CutoffsPage() {
   const [page, setPage] = useState(1)
   const [sortAsc, setSortAsc] = useState(true)
 
-  // Load year data on demand
-  const loadYear = useCallback(async (y: number) => {
-    if (loadedYears.includes(y)) return
+  async function loadYear(y: number) {
+    if (loadedYears.current.has(y)) return
+    loadedYears.current.add(y) // mark immediately to prevent double load
     setLoadingYear(y)
     try {
       const res = await fetch(`/data/cutoffs_${y}.json`)
       const data: CutoffRecord[] = await res.json()
       setAllData((prev) => [...prev, ...data])
-      setLoadedYears((prev) => [...prev, y])
+    } catch (e) {
+      loadedYears.current.delete(y) // allow retry on error
     } finally {
       setLoadingYear(null)
     }
-  }, [loadedYears])
+  }
 
-  useEffect(() => { loadYear(2025) }, [])
+  // Load initial year only once
+  useEffect(() => {
+    loadYear(2025)
+  }, [])
 
+  // Load when year filter changes
   useEffect(() => {
     setPage(1)
     loadYear(year)
@@ -60,24 +64,25 @@ export default function CutoffsPage() {
   }, [yearData])
 
   const filtered = useMemo(() => {
-    let result = filterCutoffs(yearData, {
-      year, round: round || undefined,
+    const result = filterCutoffs(yearData, {
+      year,
+      round: round || undefined,
       category: category || undefined,
       college: college || undefined,
       branch: branch || undefined,
       searchQuery: search || undefined,
     })
-    result = [...result].sort((a, b) => sortAsc
-      ? a.closing_rank - b.closing_rank
-      : b.closing_rank - a.closing_rank)
-    return result
+    return [...result].sort((a, b) =>
+      sortAsc ? a.closing_rank - b.closing_rank : b.closing_rank - a.closing_rank
+    )
   }, [yearData, year, round, category, college, branch, search, sortAsc])
 
   const paginated = filtered.slice(0, page * PAGE_SIZE)
   const hasMore = paginated.length < filtered.length
 
   function resetFilters() {
-    setSearch(''); setRound(''); setCategory('GM'); setCollege(''); setBranch(''); setPage(1)
+    setSearch(''); setRound(''); setCategory('GM')
+    setCollege(''); setBranch(''); setPage(1)
   }
 
   const availableRounds = useMemo(() => {
@@ -87,7 +92,6 @@ export default function CutoffsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 text-emerald-600 mb-2">
           <BarChart2 className="w-5 h-5" />
@@ -97,55 +101,38 @@ export default function CutoffsPage() {
         <p className="text-slate-500 mt-1.5">Real cutoff data for 256+ colleges — all categories, all rounds</p>
       </div>
 
-      {/* Filters */}
       <Card className="mb-6">
         <CardContent className="pt-5 pb-5">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            <Select
-              label="Year"
-              value={year}
+            <Select label="Year" value={year}
               onChange={(e) => setYear(Number(e.target.value))}
-              options={YEARS.map((y) => ({ value: y, label: String(y) }))}
-            />
-            <Select
-              label="Round"
-              value={round}
-              onChange={(e) => setRound(e.target.value)}
+              options={YEARS.map((y) => ({ value: y, label: String(y) }))} />
+            <Select label="Round" value={round}
+              onChange={(e) => { setRound(e.target.value); setPage(1) }}
               placeholder="All Rounds"
-              options={availableRounds.map((r) => ({ value: r, label: r }))}
-            />
-            <Select
-              label="Category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              options={availableRounds.map((r) => ({ value: r, label: r }))} />
+            <Select label="Category" value={category}
+              onChange={(e) => { setCategory(e.target.value); setPage(1) }}
               placeholder="All Categories"
-              options={CATEGORIES}
-            />
-            <Select
-              label="College"
-              value={college}
-              onChange={(e) => setCollege(e.target.value)}
+              options={CATEGORIES} />
+            <Select label="College" value={college}
+              onChange={(e) => { setCollege(e.target.value); setPage(1) }}
               placeholder="All Colleges"
-              options={colleges.map(([code, name]) => ({ value: code, label: `${code} – ${name.slice(0, 35)}` }))}
-            />
-            <Select
-              label="Branch"
-              value={branch}
-              onChange={(e) => setBranch(e.target.value)}
+              options={colleges.map(([code, name]) => ({
+                value: code,
+                label: `${code} – ${name.slice(0, 35)}`
+              }))} />
+            <Select label="Branch" value={branch}
+              onChange={(e) => { setBranch(e.target.value); setPage(1) }}
               placeholder="All Branches"
-              options={branches.map(([code, name]) => ({ value: code, label: name }))}
-            />
+              options={branches.map(([code, name]) => ({ value: code, label: name }))} />
             <div className="flex flex-col">
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Search</label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="College / branch…"
-                  value={search}
+                <input type="text" placeholder="College / branch…" value={search}
                   onChange={(e) => { setSearch(e.target.value); setPage(1) }}
-                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                  className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               </div>
             </div>
           </div>
@@ -155,17 +142,19 @@ export default function CutoffsPage() {
               {loadingYear ? (
                 <span className="text-blue-600">Loading {loadingYear} data…</span>
               ) : (
-                <span><span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> records found</span>
+                <span>
+                  <span className="font-semibold text-slate-700">{filtered.length.toLocaleString()}</span> records found
+                </span>
               )}
             </div>
-            <button onClick={resetFilters} className="text-xs text-blue-600 hover:underline">Reset filters</button>
+            <button onClick={resetFilters} className="text-xs text-blue-600 hover:underline">
+              Reset filters
+            </button>
           </div>
         </CardContent>
       </Card>
 
-      {/* Table */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        {/* Table header */}
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -195,7 +184,8 @@ export default function CutoffsPage() {
                 </tr>
               ) : (
                 paginated.map((r, i) => (
-                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                  <tr key={`${r.college_code}-${r.branch_code}-${r.category}-${r.round}-${r.closing_rank}-${i}`}
+                    className="hover:bg-slate-50 transition-colors">
                     <td className="px-4 py-3 font-mono text-xs text-slate-500">{r.college_code}</td>
                     <td className="px-4 py-3 font-medium text-slate-800 leading-snug max-w-xs">{r.college_name}</td>
                     <td className="px-4 py-3 text-slate-600 leading-snug">{r.branch_name}</td>
@@ -215,13 +205,10 @@ export default function CutoffsPage() {
           </table>
         </div>
 
-        {/* Load more */}
         {hasMore && (
           <div className="p-4 border-t border-slate-100 text-center">
-            <button
-              onClick={() => setPage((p) => p + 1)}
-              className="text-sm text-blue-600 font-medium hover:underline"
-            >
+            <button onClick={() => setPage((p) => p + 1)}
+              className="text-sm text-blue-600 font-medium hover:underline">
               Load more ({filtered.length - paginated.length} remaining)
             </button>
           </div>
